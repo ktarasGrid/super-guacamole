@@ -14,9 +14,15 @@
 
 '''
 
-def main():
-    pass
+integers = [5, 3, 2, 5, 7, 3, 9, 2]
 
+unique_integers = tuple(set(integers))
 
-if __name__ == "__main__":
-    main()
+min_number = min(unique_integers)
+max_number = max(unique_integers)
+
+print(f"Tuple of unique integers: {unique_integers}")
+print(f"Minimum number: {min_number}")
+print(f"Maximum number: {max_number}")
+
+# python task1_2.py

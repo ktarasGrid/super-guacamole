@@ -14,9 +14,65 @@
 
 '''
 
-def main():
-    pass
+import argparse
+import platform
+import psutil
+import os
+import socket
+import getpass
 
+def get_distro_info():
+    print(f"Distro Info: {platform.platform()}")
+
+def get_memory_info():
+    mem = psutil.virtual_memory()
+    print(f"Memory Total: {mem.total / (1024 ** 3):.2f} GB")
+    print(f"Memory Used: {mem.used / (1024 ** 3):.2f} GB")
+    print(f"Memory Free: {mem.available / (1024 ** 3):.2f} GB")
+
+def get_cpu_info():
+    cpu_freq = psutil.cpu_freq()
+    print(f"CPU Model: {platform.processor()}")
+    print(f"CPU Cores: {psutil.cpu_count(logical=False)}")
+    print(f"CPU Speed: {cpu_freq.current / 1000:.2f} GHz")
+
+def get_user_info():
+    print(f"Current User: {getpass.getuser()}")
+
+def get_load_average():
+    load1, load5, load15 = os.getloadavg()
+    print(f"System Load Average (1 min): {load1}")
+    print(f"System Load Average (5 min): {load5}")
+    print(f"System Load Average (15 min): {load15}")
+
+def get_ip_address():
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    print(f"IP Address: {ip_address}")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="System Information Script")
+    parser.add_argument("-d", action="store_true", help="Show distro info")
+    parser.add_argument("-m", action="store_true", help="Show memory info")
+    parser.add_argument("-c", action="store_true", help="Show CPU info")
+    parser.add_argument("-u", action="store_true", help="Show user info")
+    parser.add_argument("-l", action="store_true", help="Show load average")
+    parser.add_argument("-i", action="store_true", help="Show IP address")
+    
+    args = parser.parse_args()
+
+    if args.d:
+        get_distro_info()
+    if args.m:
+        get_memory_info()
+    if args.c:
+        get_cpu_info()
+    if args.u:
+        get_user_info()
+    if args.l:
+        get_load_average()
+    if args.i:
+        get_ip_address()
+
+    if not any(vars(args).values()):
+        parser.print_help()

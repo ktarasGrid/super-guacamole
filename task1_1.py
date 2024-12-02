@@ -15,9 +15,26 @@
 '''
 
 
-def main():
-    pass
+import sys
+import os
 
+def get_file_extension(filename):
+    basename, extension = os.path.splitext(filename)
+    if not extension:
+        raise ValueError("No extension found in the filename.")
+    return extension
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <filename>")
+        sys.exit(1)
+
+    try:
+        filename = sys.argv[1]
+        extension = get_file_extension(filename)
+        print(f"The extension is: {extension}")
+    except ValueError as e:
+        print(e)
+
+
+# python task1_1.py example.txt
