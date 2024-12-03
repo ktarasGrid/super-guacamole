@@ -1,18 +1,10 @@
-'''
+"""
+This script analyzes an Apache access log file and counts the occurrences
+of each User-Agent in the log entries.
 
-    Task 1
-
-    1. Create a script that accepts the file name and puts its extension to output. If there is no extension - an exception should be raised.
-    2. Given a list of integers. Remove duplicates from the list and create a tuple. Find the minimum and maximum number.
-    3. Create a script that reads the access log from a file. The name of the file is provided as an argument. 
-    An output of the script should provide the total number of different User Agents and then provide statistics with the number of requests from each of them.
-    Here is a link to an example access.log file.
-    4. Given an input string, count occurrences of all characters within a string (e.g. pythonnohtyppy -> p:3, y:3, t:2, h:2, o:2, n:2).
-    5. Write a script that gets system information like distro info, memory(total, used, free), CPU info (model, core numbers, speed), 
-    current user, system load average, and IP address. Use arguments for specifying resources. 
-    (For example, -d for distro -m for memory, -c for CPU, -u for user info, -l for load average, -i for IP address).
-
-'''
+Usage:
+    python script.py <access_log_file>
+"""
 
 import sys
 import re
@@ -39,16 +31,27 @@ log_pattern = re.compile(r'''
     "(?P<user_agent>.*?)"          # user agent
     ''', re.VERBOSE)
 
-def parse_access_log(log_file):
+def parse_access_log(file_path):
+    """
+    Parses an Apache access log file and counts User-Agent occurrences.
+
+    Args:
+        file_path (str): The path to the log file.
+
+    Returns:
+        Counter: A Counter object with User-Agent strings as keys and their
+        counts as values.
+    """
     user_agents = []
-    with open(log_file, 'r', encoding='utf-8', errors='replace') as file:
-        for line in file:
-            match = log_pattern.match(line)
-            if match:
-                user_agent = match.group('user_agent')
-                user_agents.append(user_agent)
-            else:
-                pass
+    try:
+        with open(file_path, 'r', encoding='utf-8', errors='replace') as file:
+            for line in file:
+                match = log_pattern.match(line)
+                if match:
+                    user_agents.append(match.group('user_agent'))
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found.")
+        sys.exit(1)
     return Counter(user_agents)
 
 if __name__ == "__main__":
@@ -56,8 +59,8 @@ if __name__ == "__main__":
         print("Usage: python script.py <access_log_file>")
         sys.exit(1)
 
-    log_file = sys.argv[1]
-    user_agent_counts = parse_access_log(log_file)
+    log_file_path = sys.argv[1]
+    user_agent_counts = parse_access_log(log_file_path)
 
     print(f"Total number of different User Agents: {len(user_agent_counts)}")
     print("Number of requests from each User Agent:")
