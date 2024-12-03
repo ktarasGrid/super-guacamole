@@ -1,40 +1,37 @@
-'''
-
-    Task 1
-
-    1. Create a script that accepts the file name and puts its extension to output. If there is no extension - an exception should be raised.
-    2. Given a list of integers. Remove duplicates from the list and create a tuple. Find the minimum and maximum number.
-    3. Create a script that reads the access log from a file. The name of the file is provided as an argument. 
-    An output of the script should provide the total number of different User Agents and then provide statistics with the number of requests from each of them.
-    Here is a link to an example access.log file.
-    4. Given an input string, count occurrences of all characters within a string (e.g. pythonnohtyppy -> p:3, y:3, t:2, h:2, o:2, n:2).
-    5. Write a script that gets system information like distro info, memory(total, used, free), CPU info (model, core numbers, speed), 
-    current user, system load average, and IP address. Use arguments for specifying resources. 
-    (For example, -d for distro -m for memory, -c for CPU, -u for user info, -l for load average, -i for IP address).
-
-'''
-
+"""
+This script retrieves the file extension from a given filename.
+Usage: python task1_1.py <filename>
+"""
 
 import sys
 import os
 
-def get_file_extension(filename):
-    basename, extension = os.path.splitext(filename)
+def get_file_extension(file_path):
+    """
+    Extracts and returns the file extension from a given file path.
+
+    Args:
+        file_path (str): The path to the file.
+
+    Returns:
+        str: The file extension (including the dot).
+
+    Raises:
+        ValueError: If the file has no extension.
+    """
+    _, extension = os.path.splitext(file_path)
     if not extension:
         raise ValueError("No extension found in the filename.")
     return extension
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python script.py <filename>")
+        print("Usage: python task1_1.py <filename>")
         sys.exit(1)
 
     try:
-        filename = sys.argv[1]
-        extension = get_file_extension(filename)
-        print(f"The extension is: {extension}")
-    except ValueError as e:
-        print(e)
-
-
-# python task1_1.py example.txt
+        input_filename = sys.argv[1]
+        file_extension = get_file_extension(input_filename)
+        print(f"The extension is: {file_extension}")
+    except ValueError as error:
+        print(error)

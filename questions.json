@@ -1,0 +1,37 @@
+{
+    "Customer Satisfaction Survey": {
+      "General Feedback": {
+        "Overall Satisfaction": {
+          "Description": "How satisfied are you with our product?",
+          "Answers": [
+            "Very Satisfied",
+            "Satisfied",
+            "Neutral",
+            "Dissatisfied",
+            "Very Dissatisfied"
+          ]
+        },
+        "Product Quality": {
+          "Description": "How would you rate the quality of our product?",
+          "Answers": [
+            "Excellent",
+            "Good",
+            "Average",
+            "Poor",
+            "Very Poor"
+          ]
+        },
+        "Recommendation Likelihood": {
+          "Description": "How likely are you to recommend our product to others?",
+          "Answers": [
+            "Very Likely",
+            "Likely",
+            "Neutral",
+            "Unlikely",
+            "Very Unlikely"
+          ]
+        }
+      }
+    }
+  }
+  
